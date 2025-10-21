@@ -1,4 +1,4 @@
-LLM-Based Agents for Status Dynamics in Evolving Social Networks
+## LLM-Based Agents for Status Dynamics in Evolving Social Networks
 
 A lightweight, reproducible codebase to replicate and extend the status–competition model (Antinyan et al., 2019) using:
 
