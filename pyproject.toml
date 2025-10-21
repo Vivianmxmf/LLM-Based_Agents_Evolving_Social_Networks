@@ -1,0 +1,24 @@
+# pyproject.toml
+[build-system]
+requires = ["setuptools>=67", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "signature-work"
+version = "0.1.0"
+description = "LLM-agent simulation for status competition on evolving networks"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.2",
+  "pyyaml>=6.0.2",
+  "pydantic>=2.7",
+  "networkx>=3.2",
+  "scipy>=1.11",
+  "tqdm>=4.66",
+  "matplotlib>=3.8",
+  "requests>=2.32"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
