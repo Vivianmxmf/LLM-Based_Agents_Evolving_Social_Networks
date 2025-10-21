@@ -32,6 +32,7 @@ We follow six canonical scenarios (plus LLM variants):
 
 ## 2) Repository layout
 
+```markdown
 signature-work/
 ├─ configs/                      # Scenario YAMLs (BR & LLM)
 │  ├─ EXP_LF_br.yaml
@@ -75,7 +76,7 @@ signature-work/
 │        └─ llm_stats.json     # telemetry (LLM runs)
 ├─ figs/                       # Saved figures (recommended path convention)
 └─ README.md                   # (this file)
-
+```
 
 
 ---
@@ -91,7 +92,7 @@ pip install -r requirements.txt
 ```
 
 
-LLM (Ollama)
+### LLM (Ollama)
 
 For local, small-footprint models (Mac, 8 GB RAM):
 
@@ -104,8 +105,7 @@ export LLM_BASE_URL=http://localhost:11434
 ```
 
 
-4) Running experiments
-
+## 4) Running experiments
 
 Basic (BR)
 ```bash
@@ -127,7 +127,7 @@ LLM runs also write telemetry:
 results/<SCENARIO>/artifacts/llm_stats.json
 
 
-Agent override (CLI)
+### Agent override (CLI)
 
 Any scenario can be forced to a different agent:
 ```bash
@@ -138,7 +138,7 @@ The scenario name is auto-suffixed (e.g., _llm) to avoid clobbering outputs.
 
 
 
-5) Key configuration notes (YAML)
+## 5) Key configuration notes (YAML)
 
 Net income pipeline (policy on)
 When tax.on: true, the simulator computes disposable income once at init:
@@ -164,9 +164,7 @@ Smaller K ⇒ faster, more fallback; Larger K ⇒ better alignment, slightly slo
 Seeds & batch runs
 Each YAML may include run.seed. For multi-seed sweeps, copy/patch configs or use shell loops (see §8).
 
-
-
-6) Outputs & columns
+## 6) Outputs & columns
 
 logs/aggregates.csv
 content... (per step; last row = endpoint)
@@ -181,7 +179,6 @@ decile, z_mean (or z_net_mean under tax), y_mean, U_mean, share_mean, ...
 
 artifacts/llm_stats.json
 ```json
-content... (LLM runs)
 {
   "scenario": "EXP_HE_llm_grid11",
   "llm_model": "llama3",
@@ -194,7 +191,7 @@ content... (LLM runs)
 ```
 
 
-7) Reproducing key figures
+## 7) Reproducing key figures
 
 Path convention: save figures under figs/<EXPERIMENT>_<meaning>.png.
 
@@ -212,15 +209,15 @@ python scripts/make_fig_rq4_net_vs_pretax.py \
 If the two curves look identical, you likely logged z_mean only. Re-run HER with net-income logging enabled so panel_by_decile.csv contains z_net_mean.
 
 
-Distributions (income, share, status, utility)
-# Needs an agent-level snapshot; if you don't see one, enable final snapshots in the config.
+### Distributions (income, share, status, utility)
+Needs an agent-level snapshot; if you don't see one, enable final snapshots in the config.
 ```bash
 python scripts/make_four_distributions.py \
   --logs results/EXP_HF_br/logs \
   --out  figs/EXP_HF_br_four_dists.png
 ```
 
-Time-series and BR vs. LLM panels
+### Time-series and BR vs. LLM panels
 
 Helpers in scripts/ read aggregates.csv and panel_by_decile.csv to:
 
@@ -231,7 +228,7 @@ render grid CI summaries (*_llm_grid_CI.png) from seed sweeps via summarize_grid
 
 
 
-8) Multi-seed sweeps & CI tables
+## 8) Multi-seed sweeps & CI tables
 
 Example: LE, K∈{11,21}, 5 seeds each
 ```bash
@@ -265,7 +262,7 @@ python scripts/summarize_grid_ci.py \
 ```
 
 
-9) LLM “norm-nudge” experiment (language-only policy)
+## 9) LLM “norm-nudge” experiment (language-only policy)
 
 Example config: configs/EXP_HE_llm_nudge.yaml
 Same numeric primitives as HE, but prepend a status-skeptical policy paragraph in the prompt.
@@ -283,27 +280,27 @@ python scripts/align_compare.py \
 ```
 
 
-10) Troubleshooting
+## 10) Troubleshooting
 
-A) HER identical to HE
+### A) HER identical to HE
 
 Ensure tax.on: true is read correctly. The loader normalizes YAML booleans (on:) to a string key "on".
 Confirm net-income pipeline is used at init and logged: z_net_mean must appear in HER panel_by_decile.csv.
 Aggregates should reflect policy (e.g., lower gini_z, lower share_mean).
 
-B) LLM calls hang / timeout
+### B) LLM calls hang / timeout
 
 Start Ollama: ollama serve &
 Confirm env vars: LLM_BASE_URL=http://localhost:11434, LLM_MODEL=llama3 (or mistral).
 Use small settings on low-RAM (e.g., S≤500, T≤200, K=11).
 Increase timeout in llm/client_ollama.py if needed.
 
-C) Missing agent-level snapshots
+### C) Missing agent-level snapshots
 
 make_four_distributions.py expects agents_final.csv or snapshot_t*.csv.
 Enable snapshots in your YAML (e.g., a boolean like logging.snapshots: true or logging.agents_final: true, depending on your config schema).
 
-D) Paths in scripts
+### D) Paths in scripts
 
 Use normalized CSV paths:
 
@@ -312,7 +309,7 @@ HER: results/EXP_HER_br/logs/panel_by_decile.csv
 If a plotting script errors about shape mismatch, check that both inputs have exactly 10 deciles and the same column names (share_mean, z_net_mean).
 
 
-11) Reproducibility checklist
+## 11) Reproducibility checklist
 
 Fix seeds (run.seed) and record them in result folder names (e.g., _s311).
 Persist configs alongside outputs (the loader does this).
@@ -320,18 +317,18 @@ Use deterministic LLM decoding (temperature = 0) for baseline runs.
 Keep all llm_stats.json artifacts; they explain fallback/latency behaviors.
 
 
-12) Citing the reference model
+## 12) Citing the reference model
 
 Antinyan, A., et al. (2019). Social status competition and the impact of income inequality in evolving social networks. (Used here for ABM structure and comparisons.)
 
 
-13) License & acknowledgments
+## 13) License & acknowledgments
 
 Research/teaching use only.
 Thanks to the original authors for the baseline design, and to the LLM-MAS community for open tools.
 
 
-14) Quick start recipes
+## 14) Quick start recipes
 
 Run a full BR set (quick):
 ```bash
