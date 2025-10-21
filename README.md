@@ -142,8 +142,8 @@ The scenario name is auto-suffixed (e.g., _llm) to avoid clobbering outputs.
 
 Net income pipeline (policy on)
 When tax.on: true, the simulator computes disposable income once at init:
-z^{net}_i = (1 - t_i)\, z_i + s
-and uses z^{net} for budgets, choices, and logging in HER/HFR.
+$z^{net}_i = (1 - t_i)\, z_i + s$
+and uses $z^{net}$ for budgets, choices, and logging in HER/HFR.
 YAML 1.1 “on” quirk
 Some parsers read on: as boolean. env/scenarios.py includes a normalizer:
 
