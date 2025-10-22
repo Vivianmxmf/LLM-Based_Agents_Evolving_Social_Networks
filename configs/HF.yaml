@@ -1,0 +1,10 @@
+# configs/HF.yaml
+run:
+  scenario: HF
+  agent: llm
+income:
+  beta: 1
+tax:
+  on: false
+network:
+  dynamic: false

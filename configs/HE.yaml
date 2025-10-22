@@ -1,0 +1,9 @@
+# configs/HE.yaml
+run:
+  scenario: HE
+income:
+  beta: 1
+tax:
+  on: false
+network:
+  dynamic: true

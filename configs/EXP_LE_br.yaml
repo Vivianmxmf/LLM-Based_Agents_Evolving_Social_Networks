@@ -1,0 +1,45 @@
+# Low inequality (beta=0), endogenous links, best-response agent.
+# Mirrors EXP_HE_br but switches income inequality to low.
+
+run:
+  scenario: EXP_LE_br
+  seed: 43                 # match EXP_HE_br for clean contrasts
+  steps: 50
+  population: 500
+  results_dir: "results"
+  log_every: 10
+  agent: br                # scripted best-response (paper Eq. 6)
+
+income:
+  theta: 5.0
+  beta: 0                  # <-- LOW inequality
+  eps_std: 1.0
+  pln: { m: 10.0, alpha: 2.5, sigma: 0.6 }
+
+goods:
+  p: 2.0
+  xi: 0.6
+
+preferences:
+  gamma_mean: 1.0
+  gamma_std: 0.1
+  tau_min: 0.0
+  tau_max: 1.0
+
+tax:
+  on: false                # no redistribution in this baseline
+
+network:
+  dynamic: true            # endogenous formation
+  type: "erdos_renyi"
+  erdos_renyi: { p_edge: 0.02 }        # sparse start, will evolve
+  dynamics:
+    reevaluate_every: 5
+    add_prob: 0.05
+    drop_prob: 0.01
+    max_degree: 40
+
+logging:
+  write_csv: true
+  write_parquet: false
+  snapshot_config: true

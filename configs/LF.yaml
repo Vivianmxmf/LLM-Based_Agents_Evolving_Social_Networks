@@ -1,0 +1,9 @@
+# configs/LF.yaml
+run:
+  scenario: LF
+income:
+  beta: 0
+tax:
+  on: false
+network:
+  dynamic: false

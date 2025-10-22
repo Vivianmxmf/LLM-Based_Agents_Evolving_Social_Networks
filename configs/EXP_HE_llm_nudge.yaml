@@ -1,0 +1,46 @@
+# High inequality + Endogenous network, LLM policy with a "status-skeptical" norm nudge
+run:
+  scenario: EXP_HE_llm_nudge
+  results_dir: results
+  population: 80          # keep small locally; scale on server if desired
+  steps: 20
+  seed: 551
+  agent: llm
+
+goods:
+  p: 2.0
+  xi: 0.6
+
+income:
+  theta: 5.0
+  beta: true              # HIGH inequality
+  eps_std: 10.0
+  pln: { m: 10.0, alpha: 2.5, sigma: 0.6 }
+
+preferences:
+  gamma_mean: 1.0
+  gamma_std: 0.1
+  tau_min: 0.0
+  tau_max: 1.0
+
+network:
+  dynamic: true           # endogenous (HE)
+  type: erdos_renyi
+  erdos_renyi: { p_edge: 0.13 }
+  dynamics: { reevaluate_every: 1, add_prob: 0.02, drop_prob: 0.01, max_degree: 30 }
+
+tax:
+  on: false
+  a: 0.0997
+  b: 0.003
+
+llm:
+  backend: ollama
+  temperature: 0.1
+  max_tokens: 32
+  grid_k: 11
+  # The norm-nudge: short, neutral, and *not* telling the model what to output
+  nudge: >
+    In this community, conspicuous status spending is socially discouraged.
+    Frugality and saving on the private good x are respected. Choose prudently
+    to avoid overspending on status when it does not clearly improve well-being.

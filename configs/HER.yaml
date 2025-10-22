@@ -1,0 +1,11 @@
+# configs/HER.yaml
+run:
+  scenario: HER
+income:
+  beta: 1
+tax:
+  on: true
+  a: 0.0997
+  b: 0.003
+network:
+  dynamic: true

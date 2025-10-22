@@ -1,0 +1,57 @@
+# configs/base.yaml
+# Global defaults shared by all scenarios. Scenario files override these keys.
+
+run:
+  scenario: BASE            # overwritten by scenario yamls (LF/HF/LE/HE/HFR/HER)
+  seed: 42
+  steps: 200                # simulation periods T
+  population: 500           # agents S
+  results_dir: "results"
+  log_every: 10
+  agent: "llm"        # br | llm | random
+
+income:
+  theta: 5.0                # deterministic shift in income
+  beta: 0                   # 0=low inequality; 1=high inequality (adds eps term)
+  eps_std: 1.0              # std of ε_i ~ N(0, eps_std^2)
+  pln:                      # w_i ~ PLN(m, alpha, sigma)
+    m: 10.0                 # lognormal body scale
+    alpha: 2.5              # Pareto tail exponent
+    sigma: 0.6              # lognormal sigma
+
+goods:
+  p: 2.0                    # price of status good
+  xi: 0.6                   # Cobb–Douglas share on private good x (in (0,1))
+
+preferences:
+  gamma_mean: 1.0           # status taste N(mean, std^2)
+  gamma_std: 0.1
+  tau_min: 0.0              # reliance on network resources ~ Uniform[tau_min, tau_max]
+  tau_max: 1.0
+
+tax:
+  on: false
+  a: 0.0997                 # poorest ≈10%
+  b: 0.003                  # richest ≈40% (with percentile in [0,100])
+
+network:
+  dynamic: false            # false: fixed network; true: endogenous link updates
+  type: "erdos_renyi"       # "erdos_renyi" | "barabasi_albert" | "watts_strogatz"
+  erdos_renyi:
+    p_edge: 0.02
+  barabasi_albert:
+    m_attach: 2
+  watts_strogatz:
+    k_nei: 6
+    beta_rewire: 0.05
+  # Endogenous rules (used only if dynamic: true)
+  dynamics:
+    reevaluate_every: 1     # periods between possible link updates
+    add_prob: 0.03          # baseline probability to propose a new link
+    drop_prob: 0.02         # baseline probability to drop a link
+    max_degree: 80          # soft cap; guards explosive growth
+
+logging:
+  write_csv: true
+  write_parquet: false
+  snapshot_config: true

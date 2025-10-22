@@ -1,0 +1,9 @@
+# configs/LE.yaml
+run:
+  scenario: LE
+income:
+  beta: 0
+tax:
+  on: false
+network:
+  dynamic: true

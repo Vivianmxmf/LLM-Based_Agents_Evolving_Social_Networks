@@ -1,0 +1,41 @@
+run:
+  scenario: EXP_LF_llm_grid21
+  results_dir: results
+  population: 80
+  steps: 20
+  seed: 101
+  agent: llm
+
+income:
+  theta: 5.0
+  beta: false
+  eps_std: 1.0
+  pln:
+    m: 10.0
+    alpha: 2.5
+    sigma: 0.6
+
+goods:
+  p: 2.0
+  xi: 0.6
+
+preferences:
+  gamma_mean: 1.0
+  gamma_std: 0.1
+  tau_min: 0.0
+  tau_max: 1.0
+
+network:
+  dynamic: false
+  type: erdos_renyi
+  erdos_renyi:
+    p_edge: 0.02
+
+tax:
+  on: false
+
+llm:
+  backend: ollama
+  temperature: 0.1
+  max_tokens: 32
+  grid_k: 21            # finer grid
