@@ -1,4 +1,4 @@
-## LLM-Based Agents for Status Dynamics in Evolving Social Networks
+<img width="568" height="34" alt="image" src="https://github.com/user-attachments/assets/579448de-d371-46fc-beb9-be746d98b659" />## LLM-Based Agents for Status Dynamics in Evolving Social Networks
 
 A lightweight, reproducible codebase to replicate and extend the status–competition model (Antinyan et al., 2019) using:
 
@@ -27,6 +27,27 @@ We follow six canonical scenarios (plus LLM variants):
 * **BR:** myopic best response $y_i^\*$ derived from the model’s utility (continuous choice).
 * **LLM:** selects a discrete share $s \in \{0,\frac{1}{K-1},\dots,1\}$ via a one-line response (INDEX=k), mapped to $y = s \cdot z^{net}/p$. Strict parsing + BR fallback guarantee progress (and are fully logged).
 * **Hybrid (optional):** call LLM with probability $\varphi$; otherwise use BR (compute efficient).
+
+### Results
+
+![fig1](img/image.png)
+- Fixed and Endogenous Networks in BR agents and LLM agents.
+![fig2](img/poster_giniu_BR_vs_LLM_fixed_touch.png)
+![fig3](img/poster_share_BR_vs_LLM_fixed_touch.png)
+- Utility Inequality and Status Share in Fixed Networks for BR agents and LLM agents.
+  
+![fig4](img/poster_giniu_BR_vs_LLM_endo_touch.png)
+![fig5](img/poster_share_BR_vs_LLM_endo_touch.png)
+- Utility Inequality and Status Share in Endogenous Networks for BR agents and LLM agents.
+
+![fig6](img/EXP_HE_BRvLLM_ts_share_U.png)
+- Utility Mean and  Share Mean in Higher Inequality Endogenous Networks for BR agents and LLM agents.
+
+![fig7](img/EXP_LE_BRvLLM_ts_share_U.png)
+- Utility Mean and  Share Mean in Lower Inequality Endogenous Networks for BR agents and LLM agents.
+
+![fig8](img/rq4_le_he_mix.png)
+- Contrast in Higher Inequality Endogenous(Redistribution) Networks for BR agents and LLM agents.
 
 ---
 
