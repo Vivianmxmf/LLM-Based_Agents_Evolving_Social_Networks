@@ -1,4 +1,4 @@
-<img width="568" height="34" alt="image" src="https://github.com/user-attachments/assets/579448de-d371-46fc-beb9-be746d98b659" />## LLM-Based Agents for Status Dynamics in Evolving Social Networks
+## LLM-Based Agents for Status Dynamics in Evolving Social Networks
 
 A lightweight, reproducible codebase to replicate and extend the status–competition model (Antinyan et al., 2019) using:
 
